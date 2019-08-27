@@ -30,8 +30,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       @yield('content')
     </div>
-      
-      
+
+
 
       <!-- /.content-wrapper -->
 
@@ -50,11 +50,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- ./wrapper -->
 
-    
+
   </div>
   <!-- REQUIRED SCRIPTS -->
   <script src="{{ asset('js/app.js')}}"></script>
 
-
+  @yield('script')
 </body>
 </html>

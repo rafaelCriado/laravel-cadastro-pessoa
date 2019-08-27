@@ -9,7 +9,10 @@ use App\Papel;
 
 class UsuarioController extends Controller
 {
-    //
+    public function home(){
+        return view('login.index');
+    }
+
     public function login(Request $request){
         $dados = $request->all();
         //dd($dados);
@@ -35,7 +38,7 @@ class UsuarioController extends Controller
 
 
        $usuarios = User::all();
-       //dd($usuarios); 
+       //dd($usuarios);
        return view('usuarios.index', compact('usuarios'));
     }
 
@@ -106,7 +109,7 @@ class UsuarioController extends Controller
             $usuario->save();
         }
 
-        
+
         if($save){
             \Session::flash('mensagem', ['msg'=>'Usuário cadastrado com sucesso', 'class'=>'success']);
             return redirect()->route('usuarios');
@@ -121,7 +124,7 @@ class UsuarioController extends Controller
         if(!auth()->user()->can('usuario_gerenciar')){
             return redirect()->route('home');
         }
-        
+
         $usuario = User::find($id);
         $dados = $request->all();
 
@@ -150,7 +153,7 @@ class UsuarioController extends Controller
         if($update){
             \Session::flash('mensagem', ['msg'=>'Usuário editado com sucesso', 'class'=>'success']);
         }else{
-            \Session::flash('mensagem', ['msg'=>'Erro ao editar usuário!', 'class'=>'danger']);            
+            \Session::flash('mensagem', ['msg'=>'Erro ao editar usuário!', 'class'=>'danger']);
         }
 
         return redirect()->route('usuario.editar',$id);
@@ -177,7 +180,7 @@ class UsuarioController extends Controller
         $dados = $request->all();
         $papel = Papel::find($dados['papel_id']);
         $usuario->adicionaPapel($papel);
-        \Session::flash('mensagem', ['msg'=>'Papel adicionado com sucesso!', 'class'=>'success']);            
+        \Session::flash('mensagem', ['msg'=>'Papel adicionado com sucesso!', 'class'=>'success']);
         return redirect()->back();
     }
 
@@ -191,8 +194,8 @@ class UsuarioController extends Controller
         $usuario = User::find($id);
         $papel = Papel::find($papel_id);
         $usuario->excluirPapel($papel);
-        \Session::flash('mensagem', ['msg'=>'Papel removido com sucesso!', 'class'=>'success']);   
+        \Session::flash('mensagem', ['msg'=>'Papel removido com sucesso!', 'class'=>'success']);
         return redirect()->back();
     }
-    
+
 }

@@ -2,38 +2,19 @@
 
 use GuzzleHttp\Middleware;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-//Auth::routes();
-
-
-Route::get('/login', function(){
-    return view('login.index');
-})->name('login');
-
+Route::get('/login', 'UsuarioController@home')->name('login');
 Route::post('/login', 'UsuarioController@login')->name('login');
 
 //Rota de consulta de cep
 Route::get('/cep/{cep}', 'RequisicoesController@cep')->name('cep');
 
+//Rotas que necessitam authenticacao
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', function(){
         return redirect()->route('home');
     });
     Route::get('/logout', 'UsuarioController@logout')->name('logout');
-
-    Route::get('/contato', 'ContatoController@index')->name('contato');
-    Route::get('/busca', 'BuscaController@index')->name('busca');
 
     //Rotas de Usuario
     Route::get('/usuarios', 'UsuarioController@index')->name('usuarios');
@@ -61,25 +42,17 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/papel/permissao/{id}/salvar', 'PapelController@salvarPermissao')->name('papel.permissao.salvar');
     Route::get('/papel/permissao/{id}/remover/{id_permissao}', 'PapelController@removerPermissao')->name('papel.permissao.remover');
 
-    //Rota de configuracoes
-    Route::get('/configuracoes', 'ConfiguracaoController@configuracao')->name('configuracao');
-    Route::get('/configuracoes/editar', 'ConfiguracaoController@editar')->name('configuracao.editar');
-    Route::put('/configuracoes/salvar', 'ConfiguracaoController@salvar')->name('configuracao.salvar');
+    //Rota de Pessoas
+    Route::get('/pessoas',                        'PessoaController@index')->name('pessoas');
+    Route::get('/pessoas/novo',                   'PessoaController@novo')->name('pessoas.novo');
+    Route::post('/pessoas/incluir',               'PessoaController@incluir')->name('pessoas.incluir');
 
-    //Rota de Pedidos
-    Route::get('/pedidos',                       'PedidoController@pedidos')->name('pedidos');
-    Route::get('/pedido/novo',                   'PedidoController@novo')->name('pedido.novo');
-    Route::get('/pedido/editar/{id}',            'PedidoController@editar')->name('pedido.editar');
-    Route::delete('/pedido/excluir/{id}',        'PedidoController@excluir')->name('pedido.excluir');
-    Route::post('/pedido/incluir',               'PedidoController@incluir')->name('pedido.incluir');
-    Route::put('/pedido/atualizar/{id}',         'PedidoController@salvar')->name('pedido.salvar');
-    Route::put('/pedido/salvar/debitos/{id}',    'PedidoController@salvarDebitos')->name('pedido.salvar.debitos');
-    Route::put('/pedido/salvar/endereco/{id}',   'PedidoController@salvarEndereco')->name('pedido.salvar.endereco');
-    Route::get('/pedido/debitos/atualizar/{id}', 'PedidoController@atualizarDebitos')->name('pedido.atualizar.debitos');
-    
-    Route::get('/pedido/{id}',                   'PedidoController@pedido')->name('pedido.info');
+    Route::get('/pessoas/editar/{id}',            'PessoaController@editar')->name('pessoas.editar');
+    Route::delete('/pessoas/excluir/{id}',        'PessoaController@excluir')->name('pessoas.excluir');
+    Route::put('/pessoas/atualizar/{id}',         'PessoaController@salvar')->name('pessoas.salvar');
+    Route::put('/pessoas/{id}/endereco/salvar',   'PessoaController@salvarEndereco')->name('pessoas.endereco.salvar');
+    Route::put('/pessoas/salvar/status',          'PessoaController@salvarStatus')->name('pessoas.salvar.status');
 
-    //Rotas de Documentos
-    Route::post('/documentos/incluir', 'DocumentoController@incluir')->name('documento.incluir');
+    Route::get('/pessoas/{id}',                   'PessoaController@view')->name('pessoas.info');
 });
 

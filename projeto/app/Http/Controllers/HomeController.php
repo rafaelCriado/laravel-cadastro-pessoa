@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Download;
-use App\Franquia;
-
+use App\Pessoa;
 class HomeController extends Controller
 {
     /**
@@ -28,6 +26,7 @@ class HomeController extends Controller
     {
         $qtde = [
             'usuarios'=> User::count(),
+            'pessoas' => Pessoa::count()
         ];
         return view('home', compact('qtde'));
     }

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Mineiro Delivery'),
+    'name' => env('APP_NAME', 'Box Supreme'),
 
     /*
     |--------------------------------------------------------------------------

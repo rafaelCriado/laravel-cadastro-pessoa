@@ -19,20 +19,20 @@
   </head>
 
   <body class="text-center" style="background: #909090; height: 100%; color: #fff;">
-    
+
     <form class="form-signin" action="{{ route('login') }}" method="POST">
-        
+
         {!! csrf_field() !!}
-        <img class="mb-4" src="{{ asset('img/logo.png') }}" alt="" width="100" height="100">
-        <h1 class="h3 mb-3 font-weight-normal">Acesso Facilita Auto</h1>
-        
+        <img class="mb-4" src="{{ asset('img/logo.svg') }}" alt="" width="100" height="100">
+        <h1 class="h3 mb-3 font-weight-normal">Acesso</h1>
+
         @include('layouts.includes._mensagem_session')
         <br>
         @include('login._form')
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         <p class="mt-5 mb-3 text-muted" style="color:#fff !important;">&copy; todos os direitos reservados</p>
     </form>
-      
+
     <script src="{{ asset('js/app.js')}}"></script>
   </body>
 </html>
